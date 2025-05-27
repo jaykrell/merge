@@ -16,6 +16,7 @@ struct Pair {
 
 typedef std::deque<Pair> Queue;
 
+// TODO: Do not copy inputs.
 Queue merge(Queue a, Queue b) {
   Queue result;
   while (!a.empty() || !b.empty()) {

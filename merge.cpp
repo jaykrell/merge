@@ -39,10 +39,9 @@ Queue merge(Queue a, Queue b) {
     {
       if (result.empty() || a.front().begin > result.back().end) {
         result.push_back(a.front());
-        result.back().end = std::max(a.front().end, b.front().end);
-      } else {
-        result.back().end = std::max(result.back().end, std::max(a.front().end, b.front().end));
       }
+      result.back().end =
+          std::max(result.back().end, std::max(a.front().end, b.front().end));
       a.pop_front();
       b.pop_front();
     }

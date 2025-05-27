@@ -25,16 +25,14 @@ Queue merge(Queue a, Queue b) {
       min = &b;
 
     if (min) {
-      if (result.empty() || min->front().begin > result.back().end) {
+      if (result.empty() || min->front().begin > result.back().end)
         result.push_back(min->front());
-      }
       result.back().end = std::max(result.back().end, min->front().end);
       min->pop_front();
     } else // a.front.begin == a.front.end
     {
-      if (result.empty() || a.front().begin > result.back().end) {
+      if (result.empty() || a.front().begin > result.back().end)
         result.push_back(a.front());
-      }
       result.back().end =
           std::max(result.back().end, std::max(a.front().end, b.front().end));
       a.pop_front();

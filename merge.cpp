@@ -5,7 +5,6 @@ Definitions are unsurprising, let's proceed.
 #include <algorithm>
 #include <assert.h>
 #include <deque>
-#include <queue>
 #include <vector>
 
 struct Pair {

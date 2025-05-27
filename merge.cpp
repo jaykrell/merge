@@ -3,10 +3,14 @@ Given two sorted lists of non overlapping intervals, produce their merge.
 Definitions are unsurprising, let's proceed.
 */
 #include <algorithm>
+#include <assert.h>
 #include <deque>
 struct Pair {
   int begin;
   int end;
+  bool operator==(const Pair &other) const {
+    return begin == other.begin && end == other.end;
+  }
 };
 typedef std::deque<Pair> Queue;
 
@@ -68,5 +72,10 @@ int main() {
 
     for (auto &i : result)
       printf("[%d,%d]\n", i.begin, i.end);
+    printf("\n");
+
+    assert(merge(a, b) != a);
+    assert(merge(a, a) == a);
+    assert(merge(b, b) == b);
   }
 }

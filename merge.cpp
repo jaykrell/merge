@@ -17,12 +17,11 @@ typedef std::deque<Pair> Queue;
 Queue merge(Queue a, Queue b) {
   Queue result;
   while (!a.empty() || !b.empty()) {
-    Queue *min = a.empty()                             ? &b
-                 : b.empty()                           ? &a
-                 : (a.front().begin < b.front().begin) ? &a
-                 : (b.front().begin < a.front().begin) ? &b
-                                                       : nullptr;
-    if (min) {
+    if (Queue *min = a.empty()                             ? &b
+                     : b.empty()                           ? &a
+                     : (a.front().begin < b.front().begin) ? &a
+                     : (b.front().begin < a.front().begin) ? &b
+                                                           : nullptr) {
       if (result.empty() || min->front().begin > result.back().end)
         result.push_back(min->front());
       result.back().end = std::max(result.back().end, min->front().end);

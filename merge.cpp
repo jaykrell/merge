@@ -4,7 +4,7 @@ Definitions are unsurprising, let's proceed.
 */
 #include <algorithm>
 #include <assert.h>
-#include <deque>
+#include <vector>
 
 struct Pair {
   int begin;
@@ -14,29 +14,36 @@ struct Pair {
   }
 };
 
-typedef std::deque<Pair> Queue;
+typedef std::vector<Pair> Vector;
 
-// TODO: Do not copy inputs.
-Queue merge(Queue a, Queue b) {
-  Queue result;
-  while (!a.empty() || !b.empty()) {
-    if (Queue *min = a.empty()                             ? &b
-                     : b.empty()                           ? &a
-                     : (a.front().begin < b.front().begin) ? &a
-                     : (b.front().begin < a.front().begin) ? &b
-                                                           : nullptr) {
-      if (result.empty() || min->front().begin > result.back().end)
-        result.push_back(min->front());
-      result.back().end = std::max(result.back().end, min->front().end);
-      min->pop_front();
+Vector merge(const Vector &a, const Vector &b) {
+  Vector result;
+  struct Proxy {
+    size_t size;
+    Vector::const_iterator position;
+    void pop() {
+      ++position;
+      --size;
+    }
+  } ap{a.size(), a.begin()}, bp{b.size(), b.begin()};
+  while (ap.size || bp.size) {
+    if (auto *min = !ap.size                                    ? &bp
+                    : !bp.size                                  ? &ap
+                    : (ap.position->begin < bp.position->begin) ? &ap
+                    : (bp.position->begin < ap.position->begin) ? &bp
+                                                                : nullptr) {
+      if (result.empty() || min->position->begin > result.back().end)
+        result.push_back(*min->position);
+      result.back().end = std::max(result.back().end, min->position->end);
+      min->pop();
     } else // a.front.begin == a.front.end
     {
-      if (result.empty() || a.front().begin > result.back().end)
-        result.push_back(a.front());
-      result.back().end =
-          std::max(result.back().end, std::max(a.front().end, b.front().end));
-      a.pop_front();
-      b.pop_front();
+      if (result.empty() || ap.position->begin > result.back().end)
+        result.push_back(*ap.position);
+      result.back().end = std::max(
+          result.back().end, std::max(ap.position->end, bp.position->end));
+      ap.pop();
+      bp.pop();
     }
   }
 
@@ -47,14 +54,14 @@ Queue merge(Queue a, Queue b) {
 
 int main() {
   {
-    Queue a, b;
+    Vector a, b;
     a.push_back(Pair{1, 10});
     a.push_back(Pair{12, 20});
 
     b.push_back(Pair{5, 11});
     b.push_back(Pair{15, 25});
 
-    Queue result = merge(a, b);
+    Vector result = merge(a, b);
 
     for (auto &i : result)
       printf("[%d,%d]\n", i.begin, i.end);
@@ -62,7 +69,7 @@ int main() {
   }
 
   {
-    Queue a, b;
+    Vector a, b;
     a.push_back(Pair{1, 10});
     a.push_back(Pair{12, 20});
 
@@ -70,7 +77,7 @@ int main() {
     b.push_back(Pair{15, 25});
     b.push_back(Pair{30, 31});
 
-    Queue result = merge(a, b);
+    Vector result = merge(a, b);
 
     for (auto &i : result)
       printf("[%d,%d]\n", i.begin, i.end);

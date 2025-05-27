@@ -11,10 +11,6 @@ struct Pair {
 typedef std::deque<Pair> Queue;
 
 Queue merge(Queue a, Queue b) {
-  if (a.empty())
-    return b;
-  if (b.empty())
-    return a;
   Queue result;
   while (!a.empty() || !b.empty()) {
     Queue *min = nullptr;

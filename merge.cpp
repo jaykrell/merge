@@ -27,9 +27,8 @@ Queue merge(Queue a, Queue b) {
     if (min) {
       if (result.empty() || min->front().begin > result.back().end) {
         result.push_back(min->front());
-      } else {
-        result.back().end = std::max(result.back().end, min->front().end);
       }
+      result.back().end = std::max(result.back().end, min->front().end);
       min->pop_front();
     } else // a.front.begin == a.front.end
     {

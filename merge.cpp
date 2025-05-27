@@ -5,6 +5,7 @@ Definitions are unsurprising, let's proceed.
 #include <algorithm>
 #include <assert.h>
 #include <deque>
+
 struct Pair {
   int begin;
   int end;
@@ -12,6 +13,7 @@ struct Pair {
     return begin == other.begin && end == other.end;
   }
 };
+
 typedef std::deque<Pair> Queue;
 
 Queue merge(Queue a, Queue b) {
@@ -74,6 +76,7 @@ int main() {
     printf("\n");
 
     assert(merge(a, b) != a);
+    assert(merge(a, b) != b);
     assert(merge(a, a) == a);
     assert(merge(b, b) == b);
   }

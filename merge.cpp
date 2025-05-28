@@ -1,6 +1,28 @@
 /*
+Restated problem statement:
 Given two sorted lists of non overlapping intervals, produce their merge.
 Definitions are unsurprising, let's proceed.
+
+Original problem statement:
+Merge Two Sorted Interval Arrays
+Problem Statement
+
+Given two sorted, non-overlapping interval lists, return a 3rd interval list that is the union of the input interval lists.
+
+Example
+
+Input:
+{[1,2], [3,9]}
+{[4,6], [8,10], [11,12]}
+
+Output should be:
+{[1,2], [3,10], [11,12]}
+
+
+0   1   2   3   4   5   6   7   8   9  10  11  12
+   [---]   [-----------------------]
+               [-------]       [------]   [----]
+   [---]   [--------------------------]   [----]
 */
 #include <algorithm>
 #include <assert.h>

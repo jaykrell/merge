@@ -29,7 +29,8 @@ Container merge(const Container &a, const Container &b) {
   } ap{a.size(), a.begin()}, bp{b.size(), b.begin()};
   while (ap.size || bp.size) {
     // Get the minimum of a and b.
-    // If either is empty, the other is the minimum.
+    // If one is empty, the other is the minimum.
+    // At least one is not empty.
     // If they are equal, there is no minimum, use different path.
     if (auto *min = !ap.size                                    ? &bp
                     : !bp.size                                  ? &ap

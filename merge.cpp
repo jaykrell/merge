@@ -18,6 +18,7 @@ struct Pair {
 template <typename Container>
 Container merge(const Container &a, const Container &b) {
   Container result;
+  // "Proxy" as in, "avoid mutating or copying the inputs".
   struct Proxy {
     size_t size;
     Container::const_iterator position;
@@ -36,7 +37,7 @@ Container merge(const Container &a, const Container &b) {
         result.push_back(*min->position);
       result.back().end = std::max(result.back().end, min->position->end);
       min->pop();
-    } else // a.front.begin == a.front.end
+    } else // a.front.begin == b.front.begin
     {
       if (result.empty() || ap.position->begin > result.back().end)
         result.push_back(*ap.position);

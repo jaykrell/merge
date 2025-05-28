@@ -1,4 +1,6 @@
 /*
+Prior question solved also: https://github.com/jaykrell/stock/blob/main/stock.cpp
+
 Restated problem statement:
 Given two sorted lists of non overlapping intervals, produce their merge.
 Definitions are unsurprising, let's proceed.

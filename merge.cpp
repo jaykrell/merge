@@ -7,7 +7,8 @@ Original problem statement:
 Merge Two Sorted Interval Arrays
 Problem Statement
 
-Given two sorted, non-overlapping interval lists, return a 3rd interval list that is the union of the input interval lists.
+Given two sorted, non-overlapping interval lists, return a 3rd interval list
+that is the union of the input interval lists.
 
 Example
 
@@ -165,5 +166,22 @@ int main() {
     assert(merge(a, b) != b);
     assert(merge(a, a) == a);
     assert(merge(b, b) == b);
+  }
+
+  // Test original.
+  {
+    std::deque<Pair> a, b;
+    a.push_back(Pair{1, 2});
+    a.push_back(Pair{3, 9});
+
+    b.push_back(Pair{4, 6});
+    b.push_back(Pair{8, 10});
+    b.push_back(Pair{11, 12});
+
+    std::deque<Pair> result = merge(a, b);
+
+    for (auto &i : result)
+      printf("[%d,%d]\n", i.begin, i.end);
+    printf("\n");
   }
 }

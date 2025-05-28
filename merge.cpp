@@ -37,12 +37,22 @@ Container merge(const Container &a, const Container &b) {
                     : (ap.position->begin < bp.position->begin) ? &ap
                     : (bp.position->begin < ap.position->begin) ? &bp
                                                                 : nullptr) {
+      // If result is empty, initialize it with the minimum of a and b.
+      // If the result is not empty and there is no overlap, push minimum of a
+      // and b. If result is not empty and there is overlap, extend the end to
+      // the maximum of the (end of the) result and the minimum of a and b. Some
+      // cases are combined.
       if (result.empty() || min->position->begin > result.back().end)
         result.push_back(*min->position);
       result.back().end = std::max(result.back().end, min->position->end);
       min->pop();
     } else // a.front.begin == b.front.begin
     {
+      // They have equal start. Initialize result if it is empty,
+      // with that start, and the maximum of the ends, and pop both.
+      // If result is not empty and there is overlap, extend the end.
+      // If result is empty, or there is no overlap, push new element.
+      // Some cases are combined.
       if (result.empty() || ap.position->begin > result.back().end)
         result.push_back(*ap.position);
       result.back().end = std::max(
